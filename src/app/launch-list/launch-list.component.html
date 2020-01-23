@@ -18,7 +18,7 @@
           <mat-card-subtitle
             >{{ launch.rocket.rocket_name }} - launched
             {{ launch.launch_date_utc }}</mat-card-subtitle
-          >
+            >
         </mat-card-header>
         <img
           height="300"
@@ -27,7 +27,20 @@
           loading="lazy"
           [src]="launch.links.flickr_images[0]"
           alt="Photo of {{ launch.mission_name }}"
+          [hidden]="!launch.imageLoaded"
+          (load)="launch.imageLoaded = true"
+          (error)="launch.imageError = true"
         />
+        <div 
+          class="spinner-holder" 
+          *ngIf="!launch.imageLoaded && !launch.imageError"
+        >
+          <mat-spinner></mat-spinner>
+        </div>
+        <div 
+          class="default-image" 
+          *ngIf="launch.imageError"
+        ></div>
       </mat-card>
     </section>
   </main>
