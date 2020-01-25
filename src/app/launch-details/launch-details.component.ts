@@ -67,7 +67,7 @@ export class LaunchDetailsComponent implements OnInit {
     });
   }
 
-  private createGalleryData(item: NgxGalleryImage): NgxGalleryImage {
+  private createGalleryData(item: string): NgxGalleryImage {
     return {
       small: item,
       medium: item,
