@@ -1,7 +1,51 @@
-.photo-grid {
-  padding-top: 30px;
+:host {
   display: grid;
-  grid-gap: 10px;
-  grid-template-columns: repeat(auto-fill, 300px);
-  justify-content: center;
+  grid-gap: 50px;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 50px auto;
+  grid-template-areas: 
+    "header header"
+    "article photo-grid";
+    justify-content: space-between;
+    padding: 50px;
+    height: 100vh;
+}
+header {
+  grid-area: header;
+  display: flex;
+}
+header h1 {
+  margin: 10px 0 0 10px;
+}
+article {
+  text-align: center;
+  grid-area: article;
+}
+article mat-card-title {
+  font-size: 36px;
+}
+article p {
+  font-size: 16px;
+  text-align: left;
+  line-height: 1.5;
+  padding: 10px 0;
+}
+.mat-card-lg-image {
+  margin: 0 0 20px;
+}
+.photo-grid {
+  grid-area: photo-grid;
+}
+.photo-grid > img {
+  height: 500px;
+  width: 500px;
+}
+.thumbnails img {
+  width: 80px;
+  height: 80px;
+}
+
+/deep/ .ngx-gallery-thumbnail.ngx-gallery-active {  
+  opacity: .8;
+  filter: grayscale();
 }

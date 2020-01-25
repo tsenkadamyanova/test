@@ -1,13 +1,22 @@
-<ng-container *ngIf="launchDetails$ | async as launchDetails">
-  <section style="padding-top: 20px;">
-    <mat-card style="width: 400px; margin: auto;">
-      <mat-card-header>
-        <mat-card-title>{{ launchDetails.mission_name }}</mat-card-title>
-      </mat-card-header>
-      <img
-        height="256"
-        width="256"
-        mat-card-image
+<ng-container 
+  *ngIf="launchDetails$ | async as launchDetails"
+  class="launch-details"
+  >
+  <header>
+    <button 
+      mat-fab 
+      aria-label="Go back"
+      color="primary"
+      [routerLink]="['/']"
+    >
+      <mat-icon>navigate_before</mat-icon>
+    </button>
+    <h1>{{ launchDetails.mission_name }}</h1>
+  </header>
+  <article>
+    <mat-card>
+      <img        
+        mat-card-lg-image
         [src]="launchDetails.links.mission_patch"
         alt="Mission patch of {{ launchDetails.mission_name }}"
       />
@@ -15,15 +24,26 @@
         <p>{{ launchDetails.details }}</p>
       </mat-card-content>
     </mat-card>
-  </section>
+  </article>
   <section class="photo-grid">
-    <img
-      *ngFor="let pic of launchDetails.links.flickr_images"
-      [src]="pic"
-      alt="Picture of {{ launchDetails.mission_name }}"
-      height="300"
-      width="300"
-      loading="lazy"
-    />
+    <!-- <img 
+      [src]="launchDetails.links.flickr_images[0]"
+      alt="Picture of {{ launchDetails.mission_name }}" />
+    <div class="thumbnails">
+      <img
+        *ngFor="let pic of launchDetails.links.flickr_images"
+        [src]="pic"
+        alt="Picture of {{ launchDetails.mission_name }}"
+        loading="lazy"
+      /> 
+     </div>
+    -->
+
+      <ngx-gallery 
+        [options]="galleryOptions" 
+        [images]="galleryImages"
+      >
+      </ngx-gallery>
+   
   </section>
 </ng-container>

@@ -15,6 +15,10 @@ import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
+import { from } from "rxjs";
+import { NgxGalleryModule } from "@kolkov/ngx-gallery";
 
 @NgModule({
   declarations: [
@@ -31,9 +35,12 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
     BrowserAnimationsModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    MatButtonModule,
+    MatIconModule,
     StoreModule.forRoot(launchReducers),
     EffectsModule.forRoot(launchEffects),
-    StoreDevtoolsModule.instrument()
+    StoreDevtoolsModule.instrument(),
+    NgxGalleryModule
   ],
   providers: [],
   bootstrap: [AppComponent]
