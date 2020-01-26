@@ -23,13 +23,17 @@ describe('AppComponent', () => {
   it(`should have as title 'angular-spacex-graphql-codegen'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
+    fixture.detectChanges();
     expect(app.title).toEqual('angular-spacex-graphql-codegen');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('angular-spacex-graphql-codegen app is running!');
-  });
+  /**
+   * Remove this test as we don't have this element in the html template
+   */
+  // it('should render title', () => {
+  //   const fixture = TestBed.createComponent(AppComponent);
+  //   fixture.detectChanges();
+  //   const compiled = fixture.debugElement.nativeElement;
+  //   expect(compiled.querySelector('.content span').textContent).toContain('angular-spacex-graphql-codegen app is running!');
+  // });
 });

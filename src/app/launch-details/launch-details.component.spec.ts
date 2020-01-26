@@ -1,6 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LaunchDetailsComponent } from './launch-details.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { StoreModule } from '@ngrx/store';
+import { launchReducers } from '../store/reducers';
+import { Apollo } from 'apollo-angular';
 
 describe('LaunchDetailsComponent', () => {
   let component: LaunchDetailsComponent;
@@ -8,7 +15,19 @@ describe('LaunchDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LaunchDetailsComponent ]
+      imports: [
+        RouterTestingModule,
+        MatCardModule,
+        MatIconModule,
+        NgxGalleryModule,
+        StoreModule.forRoot(launchReducers)
+      ],
+      declarations: [ 
+        LaunchDetailsComponent
+      ],
+      providers: [
+        Apollo
+      ]
     })
     .compileComponents();
   }));
