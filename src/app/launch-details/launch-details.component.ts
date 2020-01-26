@@ -1,12 +1,13 @@
 import { Component, ChangeDetectionStrategy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { map, switchMap } from "rxjs/operators";
 import { LaunchDetailsGQL } from "../services/spacexGraphql.service";
 import {
   NgxGalleryAnimation,
   NgxGalleryOptions,
   NgxGalleryImage
 } from "@kolkov/ngx-gallery";
+import { LaunchDetailsFacadeService } from "../services/launch-details-facade.service";
+import { Observable } from 'rxjs';
 
 @Component({
   selector: "app-launch-details",
@@ -17,20 +18,22 @@ import {
 export class LaunchDetailsComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[] = [];
+  launchDetails$: Observable<any>;
 
   constructor(
     private readonly route: ActivatedRoute,
-    private readonly launchDetailsService: LaunchDetailsGQL
-  ) {}
+    private readonly launchDetailsService: LaunchDetailsGQL,
+    private readonly launchDetailsFacade: LaunchDetailsFacadeService
+  ) {
+    this.route.paramMap.subscribe(params => {
+      this.launchDetails$ = this.launchDetailsFacade.launchDetailsStoreCache(
+        params.get("id")
+      );
+      this.initGallery();
+    })
+  }
 
-  launchDetails$ = this.route.paramMap.pipe(
-    map(params => params.get("id") as string),
-    switchMap(id => this.launchDetailsService.fetch({ id })),
-    map(res => res.data.launch)
-  );
-
-  ngOnInit(): void {
-    this.initGallery();
+  ngOnInit(): void {;
   }
 
   private initGallery(): void {
@@ -61,9 +64,11 @@ export class LaunchDetailsComponent implements OnInit {
 
     // Gallery images
     this.launchDetails$.subscribe(result => {
-      this.galleryImages = result.links.flickr_images.map(image => {
-        return this.createGalleryData(image);
-      });
+      if (result && result.links) {
+        this.galleryImages = result.links.flickr_images.map((image: string) => {
+          return this.createGalleryData(image);
+        });
+      }
     });
   }
 

@@ -25,9 +25,9 @@ export class LaunchFacadeService {
     return this.launchList$;
   }
 
-  pastLaunchListFacade() {
-    return this.pastLaunchesService
-      .fetch({ limit: 30 })
-      .pipe(map(res => res.data.launchesPast));
-  }
+  // pastLaunchListFacade() {
+  //   return this.pastLaunchesService
+  //     .fetch({ limit: 30 })
+  //     .pipe(map(res => res.data.launchesPast));
+  // }
 }
